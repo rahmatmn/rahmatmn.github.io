@@ -145,20 +145,30 @@ include 'koneksi.php';
           </tr>
           <!-- Akhir Header Tabel -->
 
+          <!-- Inisial Penampilan Data -->
+          <?php
+          $no = 1;
+          $tampil = mysqli_query($conn, "SELECT * FROM tbarang order by id_barang desc");
+          while($data = mysqli_fetch_array($tampil)) : 
+          ?>
+
           <!-- Awal Isi Tabel -->
           <tr>
-            <td>1</td>
-            <td>INV-UPTECH-0522-001</td>
-            <td>Printer Epson L310</td>
-            <td>Sumbangan</td>
-            <td>2 Unit</td>
-            <td>10-05-2022</td>
+            <td><?= $no++; ?></td>
+            <td><?= $data['kode']; ?></td>
+            <td><?= $data['nama']; ?></td>
+            <td><?= $data['asal']; ?></td>
+            <td><?= $data['jumlah']; ?> <?= $data['satuan']?></td>
+            <td><?= $data['tanggal_diterima']; ?></td>
             <td>
               <a href="#" class="btn btn-warning">Edit</a>
               <a href="#" class="btn btn-danger">Hapus</a>
             </td>
           </tr>
           <!-- Akhir Isi Tabel -->
+
+          <?php endwhile; ?>
+
         </table>
         <!-- Akhir Tabel -->
 
