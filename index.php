@@ -1,5 +1,6 @@
 <?php
 include 'koneksi.php';
+include 'controller.php';
 ?>
 
 <!doctype html>
@@ -33,7 +34,7 @@ include 'koneksi.php';
               <!-- Awal Kode Barang -->
               <div class="mb-3">
                 <label class="form-label">Kode Barang</label>
-                <input type="text" name="kode_barang" class="form-control" placeholder="Masukkan Kode Barang">
+                <input type="text" name="kode_barang" value="<?= $vkode?>" class="form-control" placeholder="Masukkan Kode Barang">
               </div>
               <!-- Akhir Kode Barang -->
 
@@ -70,7 +71,7 @@ include 'koneksi.php';
                 <div class="col">
                   <div class="mb-3">
                     <label class="form-label">Satuan</label>
-                    <select class="form-select" name="satuan">
+                    <select class="form-select" name="ket_satuan">
                       <option selected>--Pilih--</option>
                       <option value="unit">Unit</option>
                       <option value="pcs">Pcs</option>
@@ -93,8 +94,8 @@ include 'koneksi.php';
                 <!-- Awal Button -->
                 <div class="text-center">
                   <hr>
-                  <button class="btn btn-primary" name="simpan" type="submit">Simpan</button>
-                  <button class="btn btn-danger" name="kosongkan" type="reset">Kosongkan</button>
+                  <button class="btn btn-primary" name="tsimpan" type="submit">Simpan</button>
+                  <button class="btn btn-danger" name="tkosongkan" type="reset">Kosongkan</button>
                 </div>
                 <!-- Akhir Button -->
               </div>
@@ -161,8 +162,8 @@ include 'koneksi.php';
             <td><?= $data['jumlah']; ?> <?= $data['satuan']?></td>
             <td><?= $data['tanggal_diterima']; ?></td>
             <td>
-              <a href="#" class="btn btn-warning">Edit</a>
-              <a href="#" class="btn btn-danger">Hapus</a>
+              <a href="index.php?hal=edit&id<?= $data['id_barang'] ?>" class="btn btn-warning">Edit</a>
+              <a href="index.php?hal=hapus&id<?= $data['id_barang'] ?>" class="btn btn-danger">Hapus</a>
             </td>
           </tr>
           <!-- Akhir Isi Tabel -->
