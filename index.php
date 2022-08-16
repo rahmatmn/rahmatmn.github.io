@@ -34,14 +34,14 @@ include 'controller.php';
               <!-- Awal Kode Barang -->
               <div class="mb-3">
                 <label class="form-label">Kode Barang</label>
-                <input type="text" name="kode_barang" value="<?= $vkode?>" class="form-control" placeholder="Masukkan Kode Barang">
+                <input type="text" name="kode_barang" value="<?= $vkode ?>" class="form-control" placeholder="Masukkan Kode Barang">
               </div>
               <!-- Akhir Kode Barang -->
 
               <!-- Awal Nama Barang -->
               <div class="mb-3">
                 <label class="form-label">Nama Barang</label>
-                <input type="text" name="nama_barang" class="form-control" placeholder="Masukkan Nama Barang">
+                <input type="text" name="nama_barang" value="<?= $vnamabarang ?>" class="form-control" placeholder="Masukkan Nama Barang">
               </div>
               <!-- Akhir Kode Barang -->
 
@@ -49,7 +49,7 @@ include 'controller.php';
               <div class="mb-3">
                 <label class="form-label">Asal Barang</label>
                 <select class="form-select" name="asal_barang">
-                  <option selected>--Pilih--</option>
+                  <option value="<?= $vasal ?>"><?= $vasal ?></option>
                   <option value="belisendiri">Beli Sendiri</option>
                   <option value="hibah">Hibah</option>
                   <option value="sumbangan">Sumbangan</option>
@@ -62,7 +62,7 @@ include 'controller.php';
                 <div class="col">
                   <div class="mb-3">
                     <label class="form-label">Jumlah Barang</label>
-                    <input type="number" name="jumlah_barang" class="form-control" placeholder="Masukkan Jumlah Barang">
+                    <input type="number" name="jumlah_barang" value="<?= $vjumlah ?>" class="form-control" placeholder="Masukkan Jumlah Barang">
                   </div>
                 </div>
                 <!-- Akhir Jumlah Barang -->
@@ -72,7 +72,7 @@ include 'controller.php';
                   <div class="mb-3">
                     <label class="form-label">Satuan</label>
                     <select class="form-select" name="ket_satuan">
-                      <option selected>--Pilih--</option>
+                      <option selected value="<?= $vsatuan ?>"><?= $vsatuan ?></option>
                       <option value="unit">Unit</option>
                       <option value="pcs">Pcs</option>
                       <option value="kotak">Kotak</option>
@@ -86,7 +86,7 @@ include 'controller.php';
                 <div class="col">
                   <div class="mb-3">
                     <label class="form-label">Tanggal Diterima</label>
-                    <input type="date" name="tanggalditer" class="form-control">
+                    <input type="date" name="tanggalditer" value="<?= $vtanggalditer ?>" class="form-control">
                   </div>
                 </div>
                 <!-- Akhir Tanggal Diterima -->
@@ -94,7 +94,7 @@ include 'controller.php';
                 <!-- Awal Button -->
                 <div class="text-center">
                   <hr>
-                  <button class="btn btn-primary" name="tsimpan" type="submit">Simpan</button>
+                  <button class="btn btn-primary" name="tsimpan" onclick="berhasil" type="submit">Simpan</button>
                   <button class="btn btn-danger" name="tkosongkan" type="reset">Kosongkan</button>
                 </div>
                 <!-- Akhir Button -->
@@ -150,28 +150,29 @@ include 'controller.php';
           <?php
           $no = 1;
           $tampil = mysqli_query($conn, "SELECT * FROM tbarang order by id_barang desc");
-          while($data = mysqli_fetch_array($tampil)) : 
+          while ($data = mysqli_fetch_array($tampil)) :
           ?>
 
-          <!-- Awal Isi Tabel -->
-          <tr>
-            <td><?= $no++; ?></td>
-            <td><?= $data['kode']; ?></td>
-            <td><?= $data['nama']; ?></td>
-            <td><?= $data['asal']; ?></td>
-            <td><?= $data['jumlah']; ?> <?= $data['satuan']?></td>
-            <td><?= $data['tanggal_diterima']; ?></td>
-            <td>
-              <a href="index.php?hal=edit&id<?= $data['id_barang'] ?>" class="btn btn-warning">Edit</a>
-              <a href="index.php?hal=hapus&id<?= $data['id_barang'] ?>" class="btn btn-danger">Hapus</a>
-            </td>
-          </tr>
-          <!-- Akhir Isi Tabel -->
+            <!-- Awal Isi Tabel -->
+            <tr>
+              <td><?= $no++; ?></td>
+              <td><?= $data['kode']; ?></td>
+              <td><?= $data['nama']; ?></td>
+              <td><?= $data['asal']; ?></td>
+              <td><?= $data['jumlah']; ?> <?= $data['satuan'] ?></td>
+              <td><?= $data['tanggal_diterima']; ?></td>
+              <td>
+                <a href="index.php?hal=edit&id=<?= $data['id_barang'] ?>" class="btn btn-warning">Edit</a>
+                <a href="index.php?hal=hapus&id=<?= $data['id_barang'] ?>" class="btn btn-danger">Hapus</a>
+              </td>
+            </tr>
+            <!-- Akhir Isi Tabel -->
 
           <?php endwhile; ?>
 
         </table>
         <!-- Akhir Tabel -->
+        <!-- <button onclick="berhasil()">test</button> -->
 
       </div>
       <div class="card-footer bg-info">
@@ -186,6 +187,18 @@ include 'controller.php';
   <!-- Ini Akhir Container -->
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    function berhasil() {
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Your work has been saved',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }
+  </script>
 </body>
 
 </html>
